@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="dark">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Isaias Santos | Analista de Dados</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    
+    <!-- Material Symbols (Icons) -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL,GRAD,opsz@300,0,0,24" rel="stylesheet" />
+
+    <!-- Tailwind Config & CSS Variables for Dark/Light Theme -->
+    <style>
+        :root {
+            /* Light Mode Variables */
+            --bg-color: #f8f9f8;
+            --surface: #ffffff;
+            --surface-elevated: #eceeec;
+            --text-main: #003b36;
+            --text-muted: #404847;
+            --primary: #003b36;
+            --secondary: #b8860b; /* Darker gold for better contrast on light mode */
+            --border: #bfc9c7;
+        }
+
+        .dark {
+            /* Dark Mode Variables */
+            --bg-color: #0a0f0d;
+            --surface: #111514;
+            --surface-elevated: #1a201e;
+            --text-main: #e2e3e1;
+            --text-muted: #9b9c9c;
+            --primary: #9ed0c9;
+            --secondary: #e9c349;
+            --border: #2a3230;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        background: "var(--bg-color)",
+                        surface: "var(--surface)",
+                        elevated: "var(--surface-elevated)",
+                        foreground: "var(--text-main)",
+                        muted: "var(--text-muted)",
+                        primary: "var(--primary)",
+                        secondary: "var(--secondary)",
+                        border: "var(--border)",
+                    },
+                    fontFamily: {
+                        headline: ["Manrope", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-foreground font-body transition-colors duration-300 selection:bg-secondary selection:text-[#111413] overflow-x-hidden">
+
+    <!-- Navbar -->
+    <header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-12 py-5 bg-background/80 backdrop-blur-md border-b border-border transition-colors duration-300">
+        <div class="text-xl font-extrabold text-foreground tracking-widest font-headline uppercase">
+            Isaias<span class="text-secondary">.TECH</span>
+        </div>
+        
+        <div class="flex items-center gap-6">
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="text-foreground hover:text-secondary transition-colors" title="Alternar Modo Escuro/Claro">
+                <span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+            </button>
+            
+            <!-- Mobile Menu Toggle Button -->
+            <button id="menu-toggle" class="text-foreground hover:text-secondary transition-colors md:hidden">
+                <span class="material-symbols-outlined text-3xl">menu</span>
+            </button>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex gap-8">
+                <a href="#sobre" class="text-sm font-bold tracking-widest uppercase text-muted hover:text-secondary transition-colors">Sobre</a>
+                <a href="#projetos" class="text-sm font-bold tracking-widest uppercase text-muted hover:text-secondary transition-colors">Projetos</a>
+                <a href="#formacao" class="text-sm font-bold tracking-widest uppercase text-muted hover:text-secondary transition-colors">Formação</a>
+                <a href="#contato" class="text-sm font-bold tracking-widest uppercase text-muted hover:text-secondary transition-colors">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Menu (Hidden by default) -->
+    <div id="mobile-menu" class="fixed inset-0 z-[60] flex flex-col p-12 bg-background/95 backdrop-blur-xl translate-x-full transition-transform duration-300 md:hidden">
+        <div class="flex justify-between items-start mb-12">
+            <span class="text-secondary font-headline font-bold text-xl uppercase tracking-widest">Menu</span>
+            <button id="close-menu" class="text-foreground hover:text-secondary">
+                <span class="material-symbols-outlined text-3xl">close</span>
+            </button>
+        </div>
+        <nav class="space-y-6 flex flex-col">
+            <a href="#sobre" class="mobile-link font-headline text-3xl tracking-tight text-foreground hover:text-secondary transition-colors">Quem sou eu</a>
+            <a href="#projetos" class="mobile-link font-headline text-3xl tracking-tight text-foreground hover:text-secondary transition-colors">Projetos</a>
+            <a href="#formacao" class="mobile-link font-headline text-3xl tracking-tight text-foreground hover:text-secondary transition-colors">Formação Acadêmica</a>
+            <a href="#certificacoes" class="mobile-link font-headline text-3xl tracking-tight text-foreground hover:text-secondary transition-colors">Certificações</a>
+            <a href="#cursos" class="mobile-link font-headline text-3xl tracking-tight text-foreground hover:text-secondary transition-colors">Cursos</a>
+            <a href="#livros" class="mobile-link font-headline text-3xl tracking-tight text-foreground hover:text-secondary transition-colors">Livros Lidos</a>
+            <a href="#idiomas" class="mobile-link font-headline text-3xl tracking-tight text-foreground hover:text-secondary transition-colors">Idiomas</a>
+            <a href="#contato" class="mobile-link font-headline text-3xl tracking-tight text-foreground hover:text-secondary transition-colors">Contatos</a>
+        </nav>
+    </div>
+
+       <!-- Hero Section -->
+    <section class="relative min-h-[80vh] flex flex-col justify-center pt-32 pb-20 px-6 md:px-12 lg:px-24 overflow-hidden">
+        <!-- Abstract Decoration -->
+        <div class="absolute right-[-5%] lg:right-[0%] top-[10%] w-[400px] h-[400px] md:w-[500px] md:h-[500px] pointer-events-none opacity-40">
+            <!-- Dot Grid (Raw Data) -->
+            <div class="absolute inset-0" style="background-image: radial-gradient(var(--primary) 2px, transparent 2px); background-size: 24px 24px; -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 70%); mask-image: radial-gradient(circle at center, black 30%, transparent 70%);"></div>
+            
+            <!-- Abstract Trend Line (Intelligence) -->
+            <svg viewBox="0 0 500 500" class="absolute inset-0 w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Trend Line -->
+                <path d="M 50 400 C 150 380 200 250 300 250 C 380 250 400 150 450 100" stroke="var(--secondary)" stroke-width="2" stroke-linecap="round" stroke-dasharray="6 6" class="animate-[pulse_3s_ease-in-out_infinite]"/>
+                <!-- Data Nodes -->
+                <circle cx="50" cy="400" r="4" fill="var(--primary)" />
+                <circle cx="300" cy="250" r="5" fill="var(--primary)" />
+                <circle cx="450" cy="100" r="6" fill="var(--secondary)" class="animate-pulse" />
+                <!-- Guide Lines -->
+                <path d="M 300 250 L 300 450" stroke="var(--primary)" stroke-width="1" stroke-dasharray="4 4" opacity="0.3" />
+                <path d="M 450 100 L 450 450" stroke="var(--secondary)" stroke-width="1" stroke-dasharray="4 4" opacity="0.3" />
+            </svg>
+        </div>
+
+        <div class="relative z-10 max-w-4xl">
+            <span class="inline-block px-4 py-1.5 bg-surface-elevated text-primary text-xs font-bold tracking-[0.2em] uppercase mb-6 rounded-full border border-border">
+                Portfólio de Dados
+            </span>
+            <h1 class="font-headline text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter text-foreground leading-[1.1] mb-8">
+                Transformando dados em <br/><span class="text-secondary">Inteligência Estratégica.</span>
+            </h1>
+            <p class="text-muted text-lg md:text-xl max-w-2xl leading-relaxed font-light mb-10">
+                Olá, eu sou o <strong>Isaias Santos</strong>. Traduzo dados complexos em insights estratégicos, eliminando o ruído técnico para entregar clareza a quem decide.
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a href="#projetos" class="bg-secondary text-[#111413] px-8 py-4 font-bold tracking-tight rounded-lg hover:brightness-110 transition-all text-center">Explorar Projetos</a>
+                <a href="#contato" class="border border-border bg-transparent text-foreground px-8 py-4 font-bold tracking-tight rounded-lg hover:bg-surface-elevated transition-all text-center">Vamos Conversar?</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quem Sou Eu -->
+    <section id="sobre" class="py-24 px-6 md:px-12 lg:px-24 bg-surface">
+        <div class="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+            <!-- Profile Image -->
+            <div class="lg:col-span-5 relative">
+                <!-- Fundo arredondado (Moldura) -->
+                <div class="bg-surface-elevated/40 p-6 md:p-8 rounded-[2rem] border border-border flex items-center justify-center">
+                    <!-- Foto Circular -->
+                    <div class="aspect-square w-full relative rounded-full overflow-hidden group shadow-2xl border-4 border-surface">
+                        <!-- Substitua pela sua foto -->
+                        <img src="foto-de-perfil-fundo-cinza.png" alt="Foto de perfil de Isaias Santos" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-all duration-700" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=800&q=80';"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent opacity-60 group-hover:opacity-20 transition-all duration-700"></div>
+                    </div>
+                </div>
+                <!-- Decoração flutuante -->
+                <div class="absolute -bottom-4 right-2 md:-right-6 bg-background/90 backdrop-blur-md p-5 md:p-6 rounded-2xl border border-border shadow-xl">
+                    <span class="block text-2xl md:text-3xl font-bold font-headline text-secondary">Python/SQL/BI</span>
+                    <span class="text-xs uppercase tracking-widest text-muted">Core Skills</span>
+                </div>
+            </div>
+            
+            <!-- Bio text -->
+            <div class="lg:col-span-7">
+                <h2 class="font-headline text-4xl md:text-5xl font-light text-foreground mb-8">Quem sou eu</h2>
+                <div class="space-y-6 text-muted leading-relaxed text-lg">
+                    <p>
+                        Analista de Dados e graduando em Ciência da Computação, sou movido pela curiosidade de resolver problemas complexos através da evidência dos dados. Minha trajetória na TI me deu a base técnica necessária, mas foi na análise de dados que encontrei o equilíbrio entre lógica e estratégia.
+                    </p>
+                
+                    <p>
+                        Minha mentalidade é de evolução constante: entendo que o papel do analista vai além da entrega técnica — trata-se de ser um facilitador de decisões inteligentes."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projetos (Horizontal Scroll) -->
+    <!-- EDITÁVEL: Adicione ou remova blocos dentro de "Projetos Container" -->
+    <section id="projetos" class="py-24 bg-background">
+        <div class="px-6 md:px-12 lg:px-24 mb-16">
+            <h2 class="font-headline text-5xl font-light text-foreground">Projetos</h2>
+            <div class="h-1 w-20 bg-secondary mt-4"></div>
+        </div>
+
+        <!-- Projetos Container -->
+        <!-- O CSS define min-w-[45vw] no mobile (2 cards na tela) e min-w-[30%] no desktop (3 cards) -->
+        <div class="flex gap-6 overflow-x-auto pb-8 px-6 md:px-12 lg:px-24 hide-scrollbar snap-x snap-mandatory">
+            
+            <!-- Projeto 1 -->
+            <a href="https://github.com/isaiassousa032/Analise-de-Dados-Censo-2022" target="_blank" class="min-w-[75vw] sm:min-w-[45vw] lg:min-w-[30%] snap-start bg-surface rounded-xl overflow-hidden group border border-border hover:border-secondary/50 transition-all flex flex-col h-[400px]">
+                <div class="h-48 overflow-hidden bg-surface-elevated relative flex items-center justify-center">
+                    <!-- Placeholder color/icon se não houver imagem do projeto -->
+                    <span class="material-symbols-outlined text-6xl text-primary opacity-50 group-hover:scale-110 transition-transform duration-500">public</span>
+                </div>
+                <div class="p-8 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-[10px] uppercase font-bold tracking-tighter text-primary px-2 py-1 bg-elevated rounded border border-border">Análise de Dados</span>
+                        </div>
+                        <h3 class="font-headline text-xl font-bold text-foreground mb-2 group-hover:text-secondary transition-colors line-clamp-2">Análise de Dados do Censo 2022</h3>
+                    </div>
+                    <div class="flex items-center gap-2 mt-4 text-sm text-secondary font-bold">
+                        Ver no GitHub <span class="material-symbols-outlined text-sm">arrow_outward</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Projeto 2 -->
+            <a href="https://github.com/isaiassousa032/projeto-tiktok" target="_blank" class="min-w-[75vw] sm:min-w-[45vw] lg:min-w-[30%] snap-start bg-surface rounded-xl overflow-hidden group border border-border hover:border-secondary/50 transition-all flex flex-col h-[400px]">
+                <div class="h-48 overflow-hidden bg-surface-elevated relative flex items-center justify-center">
+                    <span class="material-symbols-outlined text-6xl text-primary opacity-50 group-hover:scale-110 transition-transform duration-500">play_circle</span>
+                </div>
+                <div class="p-8 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-[10px] uppercase font-bold tracking-tighter text-primary px-2 py-1 bg-elevated rounded border border-border">Mídias Sociais</span>
+                        </div>
+                        <h3 class="font-headline text-xl font-bold text-foreground mb-2 group-hover:text-secondary transition-colors line-clamp-2">Projeto TikTok</h3>
+                    </div>
+                    <div class="flex items-center gap-2 mt-4 text-sm text-secondary font-bold">
+                        Ver no GitHub <span class="material-symbols-outlined text-sm">arrow_outward</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Projeto 3 (Placeholder para adicionar mais futuramente) -->
+            <div class="min-w-[75vw] sm:min-w-[45vw] lg:min-w-[30%] snap-start bg-surface/50 border border-dashed border-border rounded-xl flex items-center justify-center h-[400px] flex-col gap-4">
+                <span class="material-symbols-outlined text-4xl text-muted">science</span>
+                <span class="text-sm text-muted uppercase tracking-widest font-bold">Em Desenvolvimento</span>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Formação Acadêmica & Idiomas -->
+    <section id="formacao" class="py-24 px-6 md:px-12 lg:px-24 bg-surface">
+        <div class="grid lg:grid-cols-2 gap-16">
+            <!-- Formação -->
+            <div>
+                <h2 class="font-headline text-4xl font-light text-foreground mb-8 flex items-center gap-4">
+                    <span class="material-symbols-outlined text-secondary text-4xl">school</span>
+                    Formação Acadêmica
+                </h2>
+                <div class="p-8 bg-surface-elevated rounded-xl border border-border border-l-4 border-l-secondary">
+                    <h3 class="font-headline text-xl font-bold text-foreground mb-2">Ciência da Computação</h3>
+                    <p class="text-sm text-muted uppercase tracking-widest mb-4">Graduação Completa</p>
+                    <p class="text-muted leading-relaxed text-sm">Base sólida em lógica de programação, algoritmos, estatística e desenvolvimento de sistemas, aplicada para resolver problemas complexos através dos dados.</p>
+                </div>
+            </div>
+
+            <!-- Idiomas -->
+            <div id="idiomas">
+                <h2 class="font-headline text-4xl font-light text-foreground mb-8 flex items-center gap-4">
+                    <span class="material-symbols-outlined text-secondary text-4xl">language</span>
+                    Idiomas
+                </h2>
+                <div class="flex flex-col gap-4">
+                    <!-- Edite os níveis de idioma conforme necessário -->
+                    <div class="p-6 bg-surface-elevated rounded-xl border border-border flex justify-between items-center">
+                        <span class="font-bold text-foreground">Português</span>
+                        <span class="text-xs uppercase tracking-widest text-secondary border border-secondary/30 px-3 py-1 rounded-full">Nativo</span>
+                    </div>
+                    <div class="p-6 bg-surface-elevated rounded-xl border border-border flex justify-between items-center">
+                        <span class="font-bold text-foreground">Inglês</span>
+                        <span class="text-xs uppercase tracking-widest text-primary border border-border px-3 py-1 rounded-full">Técnico / Intermediário</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificações (Horizontal Scroll) -->
+    <!-- EDITÁVEL: Adicione ou remova certificações -->
+    <section id="certificacoes" class="py-24 bg-background">
+        <div class="px-6 md:px-12 lg:px-24 mb-16">
+            <h2 class="font-headline text-5xl font-light text-foreground">Certificações</h2>
+            <div class="h-1 w-20 bg-secondary mt-4"></div>
+        </div>
+
+        <div class="flex overflow-x-auto gap-6 px-6 md:px-12 lg:px-24 hide-scrollbar snap-x snap-mandatory pb-8">
+            
+            <!-- Certificação 1 -->
+            <a href="https://www.coursera.org/account/accomplishments/specialization/KQBQ8XFWDOSC" target="_blank" class="min-w-[85vw] sm:min-w-[45vw] lg:min-w-[30%] snap-start p-8 bg-surface rounded-xl border-t-4 border-primary border-x border-b border-border shadow-sm hover:-translate-y-2 transition-transform group">
+                <span class="material-symbols-outlined text-4xl text-secondary mb-6 block" style="font-variation-settings: 'FILL' 1;">verified</span>
+                <h3 class="font-headline text-lg font-bold text-foreground mb-2 group-hover:text-secondary transition-colors">Google Data Analytics</h3>
+                <p class="text-xs text-muted uppercase tracking-widest mb-6">Professional Certificate</p>
+                <span class="text-xs font-bold text-primary flex items-center gap-1">Ver Credencial <span class="material-symbols-outlined text-[14px]">open_in_new</span></span>
+            </a>
+
+            <!-- Certificação 2 -->
+            <a href="https://www.coursera.org/account/accomplishments/verify/GQZWKIEAYSIP" target="_blank" class="min-w-[85vw] sm:min-w-[45vw] lg:min-w-[30%] snap-start p-8 bg-surface rounded-xl border-t-4 border-primary border-x border-b border-border shadow-sm hover:-translate-y-2 transition-transform group">
+                <span class="material-symbols-outlined text-4xl text-secondary mb-6 block" style="font-variation-settings: 'FILL' 1;">verified</span>
+                <h3 class="font-headline text-lg font-bold text-foreground mb-2 group-hover:text-secondary transition-colors">Google AI Essentials</h3>
+                <p class="text-xs text-muted uppercase tracking-widest mb-6">Certificate</p>
+                <span class="text-xs font-bold text-primary flex items-center gap-1">Ver Credencial <span class="material-symbols-outlined text-[14px]">open_in_new</span></span>
+            </a>
+
+            <!-- Certificação 3 -->
+            <div class="min-w-[85vw] sm:min-w-[45vw] lg:min-w-[30%] snap-start p-8 bg-surface rounded-xl border-t-4 border-muted border-x border-b border-border shadow-sm opacity-80">
+                <span class="material-symbols-outlined text-4xl text-muted mb-6 block" style="font-variation-settings: 'FILL' 0;">hourglass_empty</span>
+                <h3 class="font-headline text-lg font-bold text-foreground mb-2">Google Advanced Data Analytics</h3>
+                <p class="text-xs text-muted uppercase tracking-widest">Em Andamento</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Bento Grid Section (Cursos & Livros) -->
+    <!-- EDITÁVEL: Adicione os livros e cursos nas listas abaixo -->
+    <section class="py-24 px-6 md:px-12 lg:px-24 bg-surface">
+        <div class="grid lg:grid-cols-3 gap-8">
+            
+            <!-- Cursos -->
+            <div id="cursos" class="lg:row-span-2 bg-surface-elevated rounded-2xl p-8 lg:p-10 border border-border">
+                <h2 class="font-headline text-3xl font-light text-foreground mb-8 flex items-center gap-3">
+                    <span class="material-symbols-outlined text-secondary">workspace_premium</span>
+                    Cursos
+                </h2>
+                <div class="space-y-6">
+                    <div class="border-b border-border pb-4">
+                        <span class="text-xs text-secondary font-mono mb-1 block">Harvard University</span>
+                        <h4 class="font-headline font-bold text-foreground">CS50</h4>
+                        <p class="text-sm text-muted">Introduction to Computer Science</p>
+                    </div>
+                    <div class="pb-4">
+                        <span class="text-xs text-secondary font-mono mb-1 block">Santander Academy</span>
+                        <h4 class="font-headline font-bold text-foreground">Fundamentos de IA</h4>
+                        <p class="text-sm text-muted">Inteligência Artificial e Aplicações</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Livros Lidos e Lendo -->
+            <div id="livros" class="lg:col-span-2 bg-background rounded-2xl p-8 lg:p-10 border border-border">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="font-headline text-3xl font-light text-foreground">Biblioteca</h2>
+                    <span class="material-symbols-outlined text-secondary text-4xl">menu_book</span>
+                </div>
+                
+                <div class="mb-6 border-b border-border pb-2">
+                    <h3 class="text-sm uppercase tracking-widest text-muted font-bold">Lidos</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <!-- Livro -->
+                    <div class="group cursor-default">
+                        <div class="h-32 bg-surface-elevated mb-4 rounded-xl shadow-md border border-border flex items-center justify-center p-4">
+                            <span class="text-xs font-bold text-center text-primary uppercase">Python para análise de dados</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-6 border-b border-border pb-2">
+                    <h3 class="text-sm uppercase tracking-widest text-secondary font-bold">Lendo Atualmente</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Livro -->
+                    <div class="group cursor-default">
+                        <div class="h-32 bg-surface mb-4 rounded-xl shadow-md border border-border flex items-center justify-center p-4 border-l-2 border-l-secondary relative overflow-hidden">
+                            <div class="absolute inset-0 bg-secondary/5"></div>
+                            <span class="text-xs font-bold text-center text-foreground uppercase relative z-10">SQL Guia Prático</span>
+                        </div>
+                    </div>
+                    <!-- Livro -->
+                    <div class="group cursor-default">
+                        <div class="h-32 bg-surface mb-4 rounded-xl shadow-md border border-border flex items-center justify-center p-4 border-l-2 border-l-secondary relative overflow-hidden">
+                            <div class="absolute inset-0 bg-secondary/5"></div>
+                            <span class="text-xs font-bold text-center text-foreground uppercase relative z-10">Storytelling com Dados</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Teaser -->
+            <div id="contato" class="lg:col-span-2 bg-secondary rounded-2xl p-8 lg:p-10 flex flex-col md:flex-row items-center justify-between gap-8 group">
+                <div>
+                    <h2 class="font-headline text-3xl md:text-4xl font-extrabold text-[#111413] leading-none">Vamos transformar seus dados em inteligência estratégica?</h2>
+                    <p class="text-[#111413]/80 mt-2 font-medium">Estou disponível para novos desafios como Analista de Dados Júnior. Como posso ajudar o seu time hoje?</p>
+                </div>
+                <a href="mailto:isaiassousa032@gmail.com" class="bg-[#111413] text-secondary px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 transition-transform whitespace-nowrap text-center w-full md:w-auto">
+                    Enviar Email
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="w-full py-16 border-t border-border bg-background">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center space-y-8">
+            <h3 class="font-headline text-xl font-bold text-foreground">Isaias Santos</h3>
+            <div class="flex flex-wrap justify-center gap-6 md:gap-12">
+                <a href="https://www.linkedin.com/in/isaiassousadossantos/" target="_blank" class="text-muted hover:text-secondary transition-colors font-body text-sm uppercase tracking-widest flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px]">work</span> LinkedIn
+                </a>
+                <a href="https://github.com/isaiassousa032" target="_blank" class="text-muted hover:text-secondary transition-colors font-body text-sm uppercase tracking-widest flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px]">code</span> GitHub
+                </a>
+                <a href="mailto:isaiassousa032@gmail.com" class="text-muted hover:text-secondary transition-colors font-body text-sm uppercase tracking-widest flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px]">mail</span> Email
+                </a>
+                <a href="https://isaias.tech" target="_blank" class="text-muted hover:text-secondary transition-colors font-body text-sm uppercase tracking-widest flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px]">language</span> Site
+                </a>
+            </div>
+            <p class="text-muted/60 font-body text-xs uppercase tracking-widest text-center mt-8">
+                © 2026 Isaias Santos. Transformando dados em inteligência.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Dark/Light Theme Toggle
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const htmlElement = document.documentElement;
+
+        // Check local storage or system preference on load
+        if (localStorage.getItem('theme') === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+            htmlElement.classList.remove('dark');
+            themeIcon.textContent = 'dark_mode';
+        } else {
+            htmlElement.classList.add('dark');
+            themeIcon.textContent = 'light_mode';
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            if (htmlElement.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+                themeIcon.textContent = 'light_mode'; // Icon shows what to switch TO
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeIcon.textContent = 'dark_mode';
+            }
+        });
+
+        // Mobile Menu Toggle
+        const menuToggleBtn = document.getElementById('menu-toggle');
+        const closeMenuBtn = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            // translate-x-full = hidden to the right, translate-x-0 = visible
+            if (mobileMenu.classList.contains('translate-x-full')) {
+                mobileMenu.classList.remove('translate-x-full');
+                mobileMenu.classList.add('translate-x-0');
+                document.body.style.overflow = 'hidden'; // prevent scrolling
+            } else {
+                mobileMenu.classList.add('translate-x-full');
+                mobileMenu.classList.remove('translate-x-0');
+                document.body.style.overflow = '';
+            }
+        }
+
+        menuToggleBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking a link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+    </script>
+</body>
+</html>
